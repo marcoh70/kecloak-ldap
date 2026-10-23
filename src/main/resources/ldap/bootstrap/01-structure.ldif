@@ -1,0 +1,79 @@
+# Create organizational units
+dn: ou=People,dc=example,dc=com
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=example,dc=com
+objectClass: organizationalUnit
+ou: Groups
+
+# Create users
+dn: uid=jdoe,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: jdoe
+cn: Jane Doe
+sn: Doe
+givenName: Jane
+mail: jane.doe@example.com
+userPassword: {SSHA}password123
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /home/jdoe
+loginShell: /bin/bash
+employeeType: engineer
+departmentNumber: Engineering
+
+dn: uid=bsmith,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: bsmith
+cn: Bob Smith
+sn: Smith
+givenName: Bob
+mail: bob.smith@example.com
+userPassword: {SSHA}password456
+uidNumber: 1002
+gidNumber: 1002
+homeDirectory: /home/bsmith
+loginShell: /bin/bash
+employeeType: manager
+departmentNumber: Product
+
+dn: uid=alee,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: alee
+cn: Alice Lee
+sn: Lee
+givenName: Alice
+mail: alice.lee@example.com
+userPassword: {SSHA}password789
+uidNumber: 1003
+gidNumber: 1003
+homeDirectory: /home/alee
+loginShell: /bin/bash
+employeeType: engineer
+departmentNumber: Engineering
+
+# Create groups
+dn: cn=developers,ou=Groups,dc=example,dc=com
+objectClass: groupOfNames
+cn: developers
+member: uid=jdoe,ou=People,dc=example,dc=com
+member: uid=alee,ou=People,dc=example,dc=com
+
+dn: cn=managers,ou=Groups,dc=example,dc=com
+objectClass: groupOfNames
+cn: managers
+member: uid=bsmith,ou=People,dc=example,dc=com
+
+dn: cn=all-staff,ou=Groups,dc=example,dc=com
+objectClass: groupOfNames
+cn: all-staff
+member: uid=jdoe,ou=People,dc=example,dc=com
+member: uid=bsmith,ou=People,dc=example,dc=com
+member: uid=alee,ou=People,dc=example,dc=com
