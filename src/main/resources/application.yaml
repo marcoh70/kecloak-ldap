@@ -1,3 +1,46 @@
 spring:
   application:
     name: keycloak-ldap
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: ente-service
+              uri: ${USERS_SERVICE_URL:http://localhost:9091}
+              predicates:
+                - Path=/api/entes/**
+              filters:
+                - StripPrefix=1
+                - name: RequestRateLimiter
+                  args:
+                    key-resolver: "#{@userKeyResolver}"
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+app:
+  keycloak:
+    issuer-uri: ${KEYCLOAK_ISSUER_URI}
+    token-uri: ${KEYCLOAK_TOKEN_URI}
+    gateway-client-id: api-gateway
+    gateway-client-secret: ${GATEWAY_CLIENT_SECRET}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+server:
+  port: 9092

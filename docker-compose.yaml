@@ -30,21 +30,21 @@ services:
       - openldap
     networks:
       - auth-network
-  keycloak:
-    image: quay.io/keycloak/keycloak:26.2.0
-    command: start-dev
-    environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HEALTH_ENABLED: "true"
-    ports:
-      - 8080:8080
-    volumes:
-      - keycloak_data_262:/opt/keycloak/data
-    depends_on:
-      - openldap
-    networks:
-      - auth-network
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:26.2.0
+#    command: start-dev
+#    environment:
+#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+#      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+#      KC_HEALTH_ENABLED: "true"
+#    ports:
+#      - 8080:8080
+#    volumes:
+#      - keycloak_data_262:/opt/keycloak/data
+#    depends_on:
+#      - openldap
+#    networks:
+#      - auth-network
 networks:
   auth-network:
     driver: bridge
