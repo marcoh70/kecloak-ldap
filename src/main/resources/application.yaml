@@ -8,27 +8,48 @@ spring:
         jwt:
           issuer-uri: ${KEYCLOAK_ISSUER_URI}
 
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
+  #data:
+   # redis:
+    #  host: ${REDIS_HOST:localhost}
+     # port: ${REDIS_PORT:6379}
 
   cloud:
     gateway:
       server:
         webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - "http://localhost:5173"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders:
+                  - Authorization
+                  - Content-Type
+                  - Accept
+                allowCredentials: false
+                maxAge: 3600
+
           routes:
             - id: ente-service
               uri: ${USERS_SERVICE_URL:http://localhost:9091}
               predicates:
-                - Path=/api/entes/**
+                - Path=/api/ente/**
               filters:
-                - StripPrefix=1
-                - name: RequestRateLimiter
+                - name: TokenExchange
                   args:
-                    key-resolver: "#{@userKeyResolver}"
-                    redis-rate-limiter.replenishRate: 10
-                    redis-rate-limiter.burstCapacity: 20
+                    targetAudience: ente-service
+      #          - name: RequestRateLimiter
+       #           args:
+        #            key-resolver: "#{@userKeyResolver}"
+         #           redis-rate-limiter.replenishRate: 10
+          #          redis-rate-limiter.burstCapacity: 20
 app:
   keycloak:
     issuer-uri: ${KEYCLOAK_ISSUER_URI}
@@ -41,6 +62,10 @@ management:
     web:
       exposure:
         include: health
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.web.cors.reactive: TRACE
 
 server:
   port: 9092

@@ -17,7 +17,7 @@ cn: Jane Doe
 sn: Doe
 givenName: Jane
 mail: jane.doe@example.com
-userPassword: {SSHA}password123
+userPassword: {SSHA}+IbfDXA6+VV5U/cayRHpNY/g3pP7Ycan
 uidNumber: 1001
 gidNumber: 1001
 homeDirectory: /home/jdoe
@@ -34,7 +34,7 @@ cn: Bob Smith
 sn: Smith
 givenName: Bob
 mail: bob.smith@example.com
-userPassword: {SSHA}password456
+userPassword: {SSHA}ieYULCG5nAwOH+u/Dkow2Hhm9INWUIPj
 uidNumber: 1002
 gidNumber: 1002
 homeDirectory: /home/bsmith
@@ -51,7 +51,7 @@ cn: Alice Lee
 sn: Lee
 givenName: Alice
 mail: alice.lee@example.com
-userPassword: {SSHA}password789
+userPassword: {SSHA}vwFRwGfOEK15PegeEIgz/srWQjRxk/uz
 uidNumber: 1003
 gidNumber: 1003
 homeDirectory: /home/alee
