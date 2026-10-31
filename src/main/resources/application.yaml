@@ -68,4 +68,4 @@ logging:
     org.springframework.web.cors.reactive: TRACE
 
 server:
-  port: 9092
+  port: 9093
